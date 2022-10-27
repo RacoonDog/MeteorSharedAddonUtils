@@ -33,8 +33,12 @@ repositories {
 }
 
 dependencies {
-    modImplementation("com.github.RacoonDog:MeteorSharedAddonUtils:main-SNAPSHOT")
-    include("com.github.RacoonDog:MeteorSharedAddonUtils:main-SNAPSHOT")
+  modImplementation("com.github.RacoonDog:MeteorSharedAddonUtils:main-SNAPSHOT") {
+    transitive = false
+  }
+  include("com.github.RacoonDog:MeteorSharedAddonUtils:main-SNAPSHOT") {
+    transitive = false
+  }
 }
 ```
 
