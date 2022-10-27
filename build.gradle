@@ -29,7 +29,7 @@ dependencies {
 
     // Dependencies
     modImplementation "meteordevelopment:meteor-client:${project.meteor_version}"
-    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 
 processResources {
