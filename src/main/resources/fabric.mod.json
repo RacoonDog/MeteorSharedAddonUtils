@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "meteor-shared-addon-utils",
+  "version": "${version}",
+  "name": "Meteor Shared Addon Utils",
+  "description": "Meteor shared addon utilities.",
+  "authors": [ "Crosby" ],
+  "contact": {
+    "repo": "https://github.com/RacoonDog/MeteorSharedAddonUtils",
+    "sources": "https://github.com/RacoonDog/MeteorSharedAddonUtils",
+    "issues": "https://github.com/RacoonDog/MeteorSharedAddonUtils/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/meteor-shared-addon-utils/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "meteor": [
+      "io.github.racoondog.meteorsharedaddonutils.MeteorSharedAddonUtils"
+    ]
+  },
+  "mixins": [
+    "meteor-shared-addon-utils.mixins.json"
+  ],
+  "custom": {
+    "modmenu": {
+      "badges": [ "library", "meteor" ]
+    }
+  },
+  "depends": {
+    "java": ">=17",
+    "fabricloader": ">=0.12",
+    "minecraft": ">=${mc_version}",
+    "meteor-client": "*"
+  }
+}
