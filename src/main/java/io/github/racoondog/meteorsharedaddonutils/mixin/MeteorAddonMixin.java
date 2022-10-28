@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Unique;
 @Mixin(value = MeteorAddon.class, remap = false)
 public abstract class MeteorAddonMixin implements IMeteorAddon {
     @Unique private String id;
+    @Unique private String version;
 
     @Override
     public String getId() {
@@ -20,5 +21,15 @@ public abstract class MeteorAddonMixin implements IMeteorAddon {
     @Override
     public void setId(String string) {
         this.id = string;
+    }
+
+    @Override
+    public String getVersion() {
+        return this.version;
+    }
+
+    @Override
+    public void setVersion(String string) {
+        this.version = string;
     }
 }

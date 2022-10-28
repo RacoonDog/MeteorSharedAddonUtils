@@ -22,6 +22,7 @@ public abstract class AddonManagerMixin {
             MeteorAddon addon = entrypoint.getEntrypoint();
 
             ((IMeteorAddon) addon).setId(metadata.getId());
+            ((IMeteorAddon) addon).setVersion(metadata.getVersion().getFriendlyString());
         }
     }
 }

@@ -7,4 +7,7 @@ import net.fabricmc.api.Environment;
 public interface IMeteorAddon {
     String getId();
     void setId(String string);
+
+    String getVersion();
+    void setVersion(String string);
 }

@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
@@ -78,10 +77,6 @@ public class TitleScreenCredits {
         customTitleScreenDrawFunctions.remove(addon);
     }
 
-    /**
-     * Added try/catch for api call to deal with rate limits.
-     * @author Crosby
-     */
     private static void init() {
         add(MeteorClient.ADDON);
         for (var addon : AddonManager.ADDONS) add(addon);
@@ -94,25 +89,14 @@ public class TitleScreenCredits {
                 String commit = credit.addon.getCommit();
                 if (repo == null || commit == null) continue;
 
-                try {
-                    Response res = Http.get(String.format("https://api.github.com/repos/%s/branches/%s", repo.getOwnerName(), repo.branch())).sendJson(Response.class);
+                Response res = Http.get(String.format("https://api.github.com/repos/%s/branches/%s", repo.getOwnerName(), repo.branch())).sendJson(Response.class);
 
-                    if (res != null && !commit.equals(res.commit.sha)) {
-                        synchronized (credit.sections) {
-                            credit.sections.add(1, new Section("*", RED));
-                            credit.calculateWidth();
-                        }
+                if (res != null && !commit.equals(res.commit.sha)) {
+                    synchronized (credit.sections) {
+                        credit.sections.add(1, new Section("*", RED));
+                        credit.calculateWidth();
                     }
-                } catch (NullPointerException ignored) {} //Rate limited
-            }
-
-            // Re-sort credits by width after update check
-            synchronized (credits) {
-                credits.sort(Comparator.comparingInt(value -> {
-                    synchronized (value.sections) {
-                        return value.sections.get(0).text.equals("Meteor Client ") ? Integer.MIN_VALUE : -value.width;
-                    }
-                }));
+                }
             }
         });
     }

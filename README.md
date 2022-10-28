@@ -19,10 +19,11 @@
 
 ### Utils
 - Packed RGB & ARGB to `SettingColor`; `ColorUtils.fromPackedRGB()` & `ColorUtils.fromPackedARGB()`
-- Get `fabric.mod.json` mod id from `MeteorAddon` object; `AddonUtils.getAddonId()`
+- Get `fabric.mod.json` mod id and version string from `MeteorAddon` object; `AddonUtils.getAddonId()` & `AddonUtils.getAddonVersion()`
 - Check if a certain addon is present using it's name or id; `AddonUtils.areAddonIdsPresent()` & `AddonUtils.areAddonnamesPresent()`
 - Get `MeteorAddon` object from mod id or name; `AddonUtils.getFromName()` & `AddonUtils.getFromId()`
-- Utils to parse `fabric.mod.json` custom data. `ModMetaUtils`
+- Utils to parse `fabric.mod.json` custom data; `ModMetaUtils`
+- Add a system. `ISystems.invokeAdd()`
 
 ## Using Meteor Shared Addon Utils
 ```groovy

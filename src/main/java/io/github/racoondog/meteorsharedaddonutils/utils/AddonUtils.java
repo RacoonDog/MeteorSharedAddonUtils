@@ -8,7 +8,6 @@ import net.fabricmc.api.Environment;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
-import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public final class AddonUtils {
@@ -21,11 +20,19 @@ public final class AddonUtils {
     }
 
     /**
+     * @param addon {@link MeteorAddon} object.
+     * @return The addon's version string defined in it's {@code fabric.mod.json} file.
+     */
+    public static String getAddonVersion(MeteorAddon addon) {
+        return ((IMeteorAddon) addon).getVersion();
+    }
+
+    /**
      * @param addonNames One or more addon names.
      * @return {@code true} if any one of the specified addons is present.
      */
     public static boolean areAddonNamesPresent(String... addonNames) {
-        if (cachedNameAddons == null) generateIdCache();
+        if (cachedNameAddons == null) generateNameCache();
         for (var id : addonNames) {
             if (cachedNameAddons.containsKey(id)) return true;
         }

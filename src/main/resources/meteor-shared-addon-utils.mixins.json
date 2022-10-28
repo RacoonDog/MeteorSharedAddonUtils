@@ -6,6 +6,7 @@
   "plugin": "io.github.racoondog.meteorsharedaddonutils.MixinPlugin",
   "client": [
     "AddonManagerMixin",
+    "ISystems",
     "MeteorAddonMixin",
     "MeteorGuiThemeMixin",
     "TitleScreenCreditsMixin",
