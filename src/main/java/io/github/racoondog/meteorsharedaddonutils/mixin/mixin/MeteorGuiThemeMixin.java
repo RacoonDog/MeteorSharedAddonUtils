@@ -1,4 +1,4 @@
-package io.github.racoondog.meteorsharedaddonutils.mixin;
+package io.github.racoondog.meteorsharedaddonutils.mixin.mixin;
 
 import io.github.racoondog.meteorsharedaddonutils.features.RecolorGuiTheme;
 import meteordevelopment.meteorclient.gui.themes.meteor.MeteorGuiTheme;

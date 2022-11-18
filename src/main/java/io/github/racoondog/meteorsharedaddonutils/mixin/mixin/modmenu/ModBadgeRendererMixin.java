@@ -1,4 +1,4 @@
-package io.github.racoondog.meteorsharedaddonutils.mixin.modmenu;
+package io.github.racoondog.meteorsharedaddonutils.mixin.mixin.modmenu;
 
 import com.terraformersmc.modmenu.util.mod.Mod;
 import com.terraformersmc.modmenu.util.mod.ModBadgeRenderer;

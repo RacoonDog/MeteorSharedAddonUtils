@@ -1,4 +1,4 @@
-package io.github.racoondog.meteorsharedaddonutils;
+package io.github.racoondog.meteorsharedaddonutils.mixin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

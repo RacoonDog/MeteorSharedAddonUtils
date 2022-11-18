@@ -1,6 +1,6 @@
 package io.github.racoondog.meteorsharedaddonutils.utils;
 
-import io.github.racoondog.meteorsharedaddonutils.mixininterface.IMeteorAddon;
+import io.github.racoondog.meteorsharedaddonutils.mixin.mixininterface.IMeteorAddon;
 import meteordevelopment.meteorclient.addons.AddonManager;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import net.fabricmc.api.EnvType;

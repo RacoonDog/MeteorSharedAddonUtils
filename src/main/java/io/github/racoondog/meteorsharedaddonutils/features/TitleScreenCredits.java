@@ -1,6 +1,5 @@
 package io.github.racoondog.meteorsharedaddonutils.features;
 
-import io.github.racoondog.meteorsharedaddonutils.utils.ObjectObjectIntConsumer;
 import it.unimi.dsi.fastutil.objects.ObjectBooleanImmutablePair;
 import it.unimi.dsi.fastutil.objects.ObjectBooleanPair;
 import meteordevelopment.meteorclient.MeteorClient;
@@ -25,11 +24,16 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 @Environment(EnvType.CLIENT)
 public class TitleScreenCredits {
+    @FunctionalInterface
+    public interface DrawFunction {
+        void accept(MatrixStack matrices, Credit credit, int y);
+    }
+
     public static final int WHITE = Color.fromRGBA(255, 255, 255, 255);
     public static final int GRAY = Color.fromRGBA(175, 175, 175, 255);
     public static final int RED = Color.fromRGBA(225, 25, 25, 255);
 
-    private static final HashMap<MeteorAddon, ObjectBooleanPair<ObjectObjectIntConsumer<MatrixStack, Credit>>> customTitleScreenDrawFunctions = new HashMap<>();
+    private static final HashMap<MeteorAddon, ObjectBooleanPair<DrawFunction>> customTitleScreenDrawFunctions = new HashMap<>();
     private static final List<Credit> credits = new ArrayList<>();
 
     /**
@@ -51,7 +55,7 @@ public class TitleScreenCredits {
      * @param updateY Should be {@code true} if the custom title screen credit appears in the normal credit list and {@code false} if credit is removed or moved somewhere else.
      */
     @SuppressWarnings("SuspiciousNameCombination")
-    public static void registerCustomDrawFunction(MeteorAddon addon, ObjectObjectIntConsumer<MatrixStack, Credit> function, boolean updateY) {
+    public static void registerCustomDrawFunction(MeteorAddon addon, DrawFunction function, boolean updateY) {
         customTitleScreenDrawFunctions.put(addon, new ObjectBooleanImmutablePair<>(function, updateY));
     }
 
@@ -133,7 +137,7 @@ public class TitleScreenCredits {
         int y = 3;
         for (var credit : credits) {
             if (customTitleScreenDrawFunctions.containsKey(credit.addon)) {
-                ObjectBooleanPair<ObjectObjectIntConsumer<MatrixStack, Credit>> pair = customTitleScreenDrawFunctions.get(credit.addon);
+                ObjectBooleanPair<DrawFunction> pair = customTitleScreenDrawFunctions.get(credit.addon);
                 pair.left().accept(matrixStack, credit, y);
                 if (pair.rightBoolean()) y += mc.textRenderer.fontHeight + 2;
             } else {

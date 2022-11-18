@@ -21,7 +21,7 @@ public class ColoredWindow extends WMeteorWindow {
 
     public ColoredWindow(WWidget icon, String title, int accentColor) {
         super(icon, title);
-        this.accentColor = ColorUtils.fromPackedRGB(accentColor);
+        this.accentColor = ColorUtils.fromPackedRgb(accentColor);
     }
 
     public ColoredWindow(WWidget icon, String title, SettingColor accentColor) {

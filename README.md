@@ -17,11 +17,19 @@
 
 ### Utils
 - Packed RGB & ARGB to `SettingColor`; `ColorUtils.fromPackedRGB()` & `ColorUtils.fromPackedARGB()`
+- `Style`/`Formatting`/`TextColor` to `SettingColor`; `ColorUtils.fromStyle()`, `ColorUtils.fromFormatting()` & `ColorUtils.fromTextColor()`
+- `SettingColor` to `Style`; `ColorUtils.styleFromColor()` & `ColorUtils.styleWithColor()`
 - Get `fabric.mod.json` mod id and version string from `MeteorAddon` object; `AddonUtils.getAddonId()` & `AddonUtils.getAddonVersion()`
 - Check if a certain addon is present using its name or id; `AddonUtils.areAddonIdsPresent()` & `AddonUtils.areAddonNamesPresent()`
 - Get `MeteorAddon` object from mod id or name; `AddonUtils.getFromName()` & `AddonUtils.getFromId()`
 - Utils to parse `fabric.mod.json` custom data; `ModMetaUtils`
-- Add a system. `ISystems.invokeAdd()`
+- Add a system; `ISystems.invokeAdd()`
+- Remove a value from a `Starscript` `ValueMap`; `IValueMap.remove()`
+- Get a `GuiTheme`'s `SettingsWidgetFactory`; `ThemeUtils.getSettingsFactory()`
+- 2 Dimensional `int` vector. `Vec2i`
+
+### Settings
+- Primitive-based `BoolSetting`, `DoubleSetting`, and `IntSetting`. `BooleanSetting`, `DoubleSetting` & `IntegerSetting`
 
 ## Using Meteor Shared Addon Utils
 ```groovy

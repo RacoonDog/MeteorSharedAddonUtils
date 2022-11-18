@@ -1,4 +1,4 @@
-package io.github.racoondog.meteorsharedaddonutils.mixin;
+package io.github.racoondog.meteorsharedaddonutils.mixin.mixin;
 
 import meteordevelopment.meteorclient.utils.player.TitleScreenCredits;
 import net.fabricmc.api.EnvType;

@@ -1,7 +1,7 @@
 package io.github.racoondog.meteorsharedaddonutils.utils;
 
 import com.terraformersmc.modmenu.util.mod.Mod;
-import io.github.racoondog.meteorsharedaddonutils.mixin.modmenu.IFabricMod;
+import io.github.racoondog.meteorsharedaddonutils.mixin.mixin.modmenu.IFabricMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.metadata.CustomValue;
