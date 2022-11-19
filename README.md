@@ -5,6 +5,7 @@
   <a href="https://github.com/RacoonDog/MeteorSharedAddonUtils/commits/main"><img src="https://img.shields.io/github/last-commit/RacoonDog/MeteorSharedAddonUtils?logo=git" alt="Last commit"></a>
   <img src="https://img.shields.io/github/languages/code-size/RacoonDog/MeteorSharedAddonUtils" alt="Code Size">
   <img src="https://img.shields.io/github/repo-size/RacoonDog/MeteorSharedAddonUtils" alt="Repo Size">
+  <img src="https://jitpack.io/v/RacoonDog/MeteorSharedAddonUtils/month.svg" alt="Jitpack Downloads">
 </div>
 
 ## Features
