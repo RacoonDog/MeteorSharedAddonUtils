@@ -10,6 +10,7 @@
 
 ## Features
 - Adds a [Meteor Client Mod Menu badge](#mod-menu-badge).
+- List of addons used added to crash reports.
 
 ### Library
 - `WMeteorWindow` with custom accent color; `ColoredWindow`
@@ -30,7 +31,7 @@
 - 2 Dimensional `int` vector. `Vec2i`
 
 ### Settings
-- Primitive-based `BoolSetting`, `DoubleSetting`, and `IntSetting`. `BooleanSetting`, `DoubleSetting` & `IntegerSetting`
+- `StyleSetting` for the `Style` minecraft util class.
 
 ## Using Meteor Shared Addon Utils
 ```groovy
