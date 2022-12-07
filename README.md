@@ -36,15 +36,15 @@
 ```groovy
 repositories {
     maven {
-        url "https://jitpack.io"
+        url "https://repo.repsy.io/mvn/ggcrosby"
     }
 }
 
 dependencies {
-  modImplementation("com.github.RacoonDog:MeteorSharedAddonUtils:main-SNAPSHOT") {
+  modImplementation("io.github.RacoonDog:MeteorSharedAddonUtils:1.2.1") {
     transitive = false
   }
-  include("com.github.RacoonDog:MeteorSharedAddonUtils:main-SNAPSHOT") {
+  include("io.github.RacoonDog:MeteorSharedAddonUtils:1.2.1") {
     transitive = false
   }
 }
