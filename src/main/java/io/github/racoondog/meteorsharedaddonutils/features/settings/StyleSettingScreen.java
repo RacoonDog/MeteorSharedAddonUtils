@@ -14,6 +14,12 @@ import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.utils.render.color.Color;
 import net.minecraft.text.Style;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static meteordevelopment.meteorclient.MeteorClient.mc;
+
 public class StyleSettingScreen extends WindowScreen {
     private final Setting<Style> setting;
     public final Color color;
@@ -30,13 +36,44 @@ public class StyleSettingScreen extends WindowScreen {
     }
 
     @Override
-    public boolean toClipboard() { //todo
-        return super.toClipboard();
+    public boolean toClipboard() {
+        List<String> tokens = new ArrayList<>();
+        if (setting.get().isBold()) tokens.add("bold");
+        if (setting.get().isItalic()) tokens.add("italic");
+        if (setting.get().isUnderlined()) tokens.add("underlined");
+        if (setting.get().isStrikethrough()) tokens.add("strikethrough");
+        if (setting.get().isObfuscated()) tokens.add("obfuscated");
+
+        tokens.add(color.r + "," + color.g + "," + color.b);
+
+        String string = String.join(",", tokens);
+        mc.keyboard.setClipboard(string);
+        return mc.keyboard.getClipboard().equals(string);
     }
 
     @Override
-    public boolean fromClipboard() { //todo
-        return super.fromClipboard();
+    public boolean fromClipboard() {
+        String str = mc.keyboard.getClipboard().trim();
+
+        Style style = Style.EMPTY
+                .withBold(str.contains("bold"))
+                .withItalic(str.contains("italic"))
+                .withUnderline(str.contains("underlined"))
+                .withStrikethrough(str.contains("strikethrough"))
+                .withObfuscated(str.contains("obfuscated"));
+
+        String[] tokens = str.split(",");
+
+        style.withColor(new Color(
+                Integer.parseInt(tokens[tokens.length - 3]),
+                Integer.parseInt(tokens[tokens.length - 2]),
+                Integer.parseInt(tokens[tokens.length - 1]),
+                255
+        ).getPacked());
+
+        setting.set(style);
+
+        return true;
     }
 
     private void callAction() {

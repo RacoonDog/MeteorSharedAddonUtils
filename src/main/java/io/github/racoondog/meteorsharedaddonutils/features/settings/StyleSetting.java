@@ -1,5 +1,6 @@
 package io.github.racoondog.meteorsharedaddonutils.features.settings;
 
+import com.google.common.collect.ImmutableList;
 import io.github.racoondog.meteorsharedaddonutils.utils.ColorUtils;
 import io.github.racoondog.meteorsharedaddonutils.utils.ThemeUtils;
 import meteordevelopment.meteorclient.gui.renderer.GuiRenderer;
@@ -10,23 +11,47 @@ import meteordevelopment.meteorclient.gui.widgets.pressable.WButton;
 import meteordevelopment.meteorclient.settings.IVisible;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.utils.PreInit;
+import meteordevelopment.meteorclient.utils.render.color.Color;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Style;
 import net.minecraft.text.TextColor;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class StyleSetting extends Setting<Style> {
+    private static final List<String> SUGGESTIONS = ImmutableList.of("bold,italic,255,255,255", "0,0,0", "obfuscated,70,70,225");
+
     public StyleSetting(String name, String description, Style defaultValue, Consumer<Style> onChanged, Consumer<Setting<Style>> onModuleActivated, IVisible visible) {
         super(name, description, defaultValue, onChanged, onModuleActivated, visible);
     }
 
     @Override
-    protected Style parseImpl(String str) { //todo
-        //Used literally only when setting from chat
-        return Style.EMPTY;
+    protected Style parseImpl(String str) {
+        Style style = Style.EMPTY
+                .withBold(str.contains("bold"))
+                .withItalic(str.contains("italic"))
+                .withUnderline(str.contains("underlined"))
+                .withStrikethrough(str.contains("strikethrough"))
+                .withObfuscated(str.contains("obfuscated"));
+
+        String[] tokens = str.split(",");
+
+        style.withColor(new Color(
+                Integer.parseInt(tokens[tokens.length - 3]),
+                Integer.parseInt(tokens[tokens.length - 2]),
+                Integer.parseInt(tokens[tokens.length - 1]),
+                255
+        ).getPacked());
+
+        return style;
+    }
+
+    @Override
+    public List<String> getSuggestions() {
+        return SUGGESTIONS;
     }
 
     @Override

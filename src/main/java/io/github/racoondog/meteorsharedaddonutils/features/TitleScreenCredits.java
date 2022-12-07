@@ -106,7 +106,6 @@ public class TitleScreenCredits {
     }
 
     /**
-     * Added null checks for pseudo addons.
      * @author Crosby
      */
     private static void add(MeteorAddon addon) {
@@ -116,7 +115,7 @@ public class TitleScreenCredits {
 
         credit.sections.add(new Section(addon.name, color == null ? RED : color.getPacked()));
 
-        if (addon.authors != null) {
+        if (addon.authors != null && addon.authors.length >= 1) {
             credit.sections.add(new Section(" by ", GRAY));
             for (int i = 0; i < addon.authors.length; i++) {
                 if (i > 0) {
