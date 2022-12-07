@@ -37,15 +37,15 @@
 ```groovy
 repositories {
     maven {
-        url "https://repo.repsy.io/mvn/ggcrosby"
+        url "https://repo.repsy.io/mvn/ggcrosby/meteorsharedaddonutils"
     }
 }
 
 dependencies {
-  modImplementation("io.github.RacoonDog:MeteorSharedAddonUtils:1.2.1") {
+  modImplementation("io.github.racoondog:MeteorSharedAddonUtils:1.2.1") {
     transitive = false
   }
-  include("io.github.RacoonDog:MeteorSharedAddonUtils:1.2.1") {
+  include("io.github.racoondog:MeteorSharedAddonUtils:1.2.1") {
     transitive = false
   }
 }
