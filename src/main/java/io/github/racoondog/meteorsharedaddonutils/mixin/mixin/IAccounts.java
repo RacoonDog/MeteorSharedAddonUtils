@@ -14,7 +14,7 @@ import java.util.List;
  * @since 1.2.3
  */
 @Environment(EnvType.CLIENT)
-@Mixin(Accounts.class)
+@Mixin(value = Accounts.class, remap = false)
 public interface IAccounts {
     @Accessor
     List<Account<?>> getAccounts();
