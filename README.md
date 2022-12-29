@@ -15,7 +15,8 @@
 ### Library
 - `WMeteorWindow` with custom accent color; `ColoredWindow`
 - `MeteorGuiTheme` with the default widgets, recolored; `RecolorGuiTheme`
-- Customizable title screen text rendering. `TitleScreenCredits.registerCustomDrawFunction()`
+- Customizable title screen text rendering; `TitleScreenCredits.registerCustomDrawFunction()`
+- Use Meteor alternate accounts in commands. `AccountArgumentType`
 
 ### Utils
 - Packed RGB & ARGB to `SettingColor`; `ColorUtils.fromPackedRGB()` & `ColorUtils.fromPackedARGB()`
@@ -26,9 +27,11 @@
 - Get `MeteorAddon` object from mod id or name; `AddonUtils.getFromName()` & `AddonUtils.getFromId()`
 - Utils to parse `fabric.mod.json` custom data; `ModMetaUtils`
 - Add a system; `ISystems.invokeAdd()`
-- Remove a value from a `Starscript` `ValueMap`; `IValueMap.remove()`
 - Get a `GuiTheme`'s `SettingsWidgetFactory`; `ThemeUtils.getSettingsFactory()`
-- 2 Dimensional `int` vector. `Vec2i`
+- 2 Dimensional `int` vector; `Vec2i`
+- Get `Swarm` settings; `ISwarm.getIpAddress()` & `ISwarm.getServerPort()`
+- Get alternate accounts list; `IAccounts.getAccounts()`
+- Get alt account auth token. `IMicrosoftAccount.invokeAuth()`
 
 ### Settings
 - `StyleSetting` for the `Style` minecraft util class.
