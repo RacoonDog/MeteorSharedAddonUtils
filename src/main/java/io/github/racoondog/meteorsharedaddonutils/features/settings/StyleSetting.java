@@ -12,6 +12,8 @@ import meteordevelopment.meteorclient.settings.IVisible;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.utils.PreInit;
 import meteordevelopment.meteorclient.utils.render.color.Color;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Style;
 import net.minecraft.text.TextColor;
@@ -21,6 +23,11 @@ import java.util.function.Consumer;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
+/**
+ * @author Crosby
+ * @since 1.2
+ */
+@Environment(EnvType.CLIENT)
 public class StyleSetting extends Setting<Style> {
     private static final List<String> SUGGESTIONS = ImmutableList.of("bold,italic,255,255,255", "0,0,0", "obfuscated,70,70,225");
 

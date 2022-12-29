@@ -16,6 +16,10 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 @Mixin(CrashReport.class)
 public abstract class CrashReportMixin {
+    /**
+     * @author Crosby
+     * @since 1.2.1
+     */
     @Inject(method = "addStackTrace", at = @At("TAIL"))
     private void appendAddonsToStackTrace(StringBuilder sb, CallbackInfo ci) {
         if (AddonManager.ADDONS.isEmpty()) return;

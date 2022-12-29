@@ -12,6 +12,8 @@ import meteordevelopment.meteorclient.gui.widgets.pressable.WButton;
 import meteordevelopment.meteorclient.gui.widgets.pressable.WCheckbox;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.utils.render.color.Color;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.text.Style;
 
 import java.util.ArrayList;
@@ -19,6 +21,11 @@ import java.util.List;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
+/**
+ * @author Crosby
+ * @since 1.2
+ */
+@Environment(EnvType.CLIENT)
 public class StyleSettingScreen extends WindowScreen {
     private final Setting<Style> setting;
     public final Color color;
