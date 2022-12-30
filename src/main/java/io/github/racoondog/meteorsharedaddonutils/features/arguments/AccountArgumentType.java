@@ -46,8 +46,7 @@ public class AccountArgumentType implements ArgumentType<String> {
 
     @Override
     public String parse(StringReader reader) throws CommandSyntaxException {
-        String argument = reader.getRemaining();
-        reader.setCursor(reader.getTotalLength());
+        String argument = reader.readString();
 
         for (var account : Accounts.get()) {
             if (argument.equals(account.getUsername())) return argument;
