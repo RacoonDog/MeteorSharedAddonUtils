@@ -1,6 +1,10 @@
 name: Publish Development Build
 on: push
 
+env:
+  MSAU_REPSY_USERNAME: ${{ secrets.MSAU_REPSY_USERNAME }}
+  MSAU_REPSY_PASSWORD: ${{ secrets.MSAU_REPSY_PASSWORD }}
+
 jobs:
   build:
     runs-on: ubuntu-latest

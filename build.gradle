@@ -67,8 +67,8 @@ publishing {
             url = "https://repo.repsy.io/mvn/ggcrosby/meteorsharedaddonutils"
 
             credentials {
-                username msau_repsy_username
-                password msau_repsy_password
+                username System.getenv("MSAU_REPSY_USERNAME")
+                password System.getenv("MSAU_REPSY_PASSWORD")
             }
         }
     }
