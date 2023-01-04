@@ -15,6 +15,7 @@ import meteordevelopment.meteorclient.utils.render.color.Color;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -37,6 +38,8 @@ public class TitleScreenCredits {
 
     private static final HashMap<MeteorAddon, ObjectBooleanPair<DrawFunction>> customTitleScreenDrawFunctions = new HashMap<>();
     private static final List<Credit> credits = new ArrayList<>();
+    private static boolean initialized = false;
+    private static final List<Pair<MeteorAddon, Consumer<Credit>>> creditModificationQueue = new ArrayList<>();
 
     /**
      * Registers a custom title screen credit drawing function.
@@ -92,11 +95,16 @@ public class TitleScreenCredits {
      * @param creditConsumer The {@link Credit} object to modify.
      */
     public static void modifyAddonCredit(MeteorAddon addon, Consumer<Credit> creditConsumer) {
+        if (!initialized) {
+            creditModificationQueue.add(new Pair(addon, creditConsumer));
+            return;
+        }
+
         for (var credit : credits) {
             if (credit.addon.equals(addon)) {
                 creditConsumer.accept(credit);
                 if (credit.outdated && !hasOutdated(credit)) credit.sections.add(1, new OutdatedMarker());
-                sortCredits();
+                if (initialized) sortCredits(); //Sorting will happen during initialization, so don't sort if not initialized
                 return;
             }
         }
@@ -104,8 +112,12 @@ public class TitleScreenCredits {
     }
 
     private static void init() {
+        initialized = true;
+
         add(MeteorClient.ADDON);
-        for (var addon : AddonManager.ADDONS) add(addon);
+        AddonManager.ADDONS.forEach(TitleScreenCredits::add);
+
+        creditModificationQueue.forEach(pair -> modifyAddonCredit(pair.getLeft(), pair.getRight()));
 
         sortCredits();
 
