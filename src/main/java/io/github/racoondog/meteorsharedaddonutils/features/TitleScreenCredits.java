@@ -103,7 +103,8 @@ public class TitleScreenCredits {
             if (credit.addon.equals(addon)) {
                 creditConsumer.accept(credit);
                 if (credit.outdated && !hasOutdated(credit)) credit.sections.add(1, new OutdatedMarker());
-                if (initialized) sortCredits(); //Sorting will happen during initialization, so don't sort if not initialized
+                credit.calculateWidth();
+                sortCredits();
                 return;
             }
         }
