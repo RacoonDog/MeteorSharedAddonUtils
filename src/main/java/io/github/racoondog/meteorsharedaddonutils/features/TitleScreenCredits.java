@@ -57,11 +57,10 @@ public class TitleScreenCredits {
      *
      * @param addon The {@link MeteorAddon}` object. Usually {@code this} if used in the addon's {@link MeteorAddon#onInitialize()} method. Can also be another addon to override their title screen credit.
      * @param function A TriConsumer which gives the {@link MatrixStack}, the addon's {@link TitleScreenCredits.Credit} object and the current Y position on the normal title screen credit list. Y position is based on the {@link TitleScreenCredits.Credit} object's width.
-     * @param updateY Should be {@code true} if the custom title screen credit appears in the normal credit list and {@code false} if credit is removed or moved somewhere else.
+     * @param shouldUpdateY Should be {@code true} if the custom title screen credit appears in the normal credit list and {@code false} if credit is removed or moved somewhere else.
      */
-    @SuppressWarnings("SuspiciousNameCombination")
-    public static void registerCustomDrawFunction(MeteorAddon addon, DrawFunction function, boolean updateY) {
-        customTitleScreenDrawFunctions.put(addon, new ObjectBooleanImmutablePair<>(function, updateY));
+    public static void registerCustomDrawFunction(MeteorAddon addon, DrawFunction function, boolean shouldUpdateY) {
+        customTitleScreenDrawFunctions.put(addon, new ObjectBooleanImmutablePair<>(function, shouldUpdateY));
     }
 
     /**
@@ -96,7 +95,7 @@ public class TitleScreenCredits {
      */
     public static void modifyAddonCredit(MeteorAddon addon, Consumer<Credit> creditConsumer) {
         if (!initialized) {
-            creditModificationQueue.add(new Pair(addon, creditConsumer));
+            creditModificationQueue.add(new Pair<>(addon, creditConsumer));
             return;
         }
 
