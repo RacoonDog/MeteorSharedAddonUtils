@@ -1,5 +1,6 @@
 package io.github.racoondog.meteorsharedaddonutils.features;
 
+import io.github.racoondog.meteorsharedaddonutils.MeteorSharedAddonUtils;
 import it.unimi.dsi.fastutil.objects.ObjectBooleanImmutablePair;
 import it.unimi.dsi.fastutil.objects.ObjectBooleanPair;
 import meteordevelopment.meteorclient.MeteorClient;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
@@ -81,11 +83,31 @@ public class TitleScreenCredits {
         customTitleScreenDrawFunctions.remove(addon);
     }
 
+    /**
+     * Modifies the given {@link MeteorAddon}'s credit.
+     *
+     * <pre>{@code TitleScreenCredits.modifyAddonCredit(this, credit -> credit.append("!", TitleScreenCredits.WHITE));}</pre>
+     *
+     * @param addon Target {@link MeteorAddon}.
+     * @param creditConsumer The {@link Credit} object to modify.
+     */
+    public static void modifyAddonCredit(MeteorAddon addon, Consumer<Credit> creditConsumer) {
+        for (var credit : credits) {
+            if (credit.addon.equals(addon)) {
+                creditConsumer.accept(credit);
+                if (credit.outdated && !hasOutdated(credit)) credit.sections.add(1, new OutdatedMarker());
+                sortCredits();
+                return;
+            }
+        }
+        MeteorSharedAddonUtils.LOG.warn("A credit could not be found for addon {}.", addon.name);
+    }
+
     private static void init() {
         add(MeteorClient.ADDON);
         for (var addon : AddonManager.ADDONS) add(addon);
 
-        credits.sort(Comparator.comparingInt(value -> value.sections.get(0).text.equals("Meteor Client ") ? Integer.MIN_VALUE : -value.width));
+        sortCredits();
 
         MeteorExecutor.execute(() -> {
             for (var credit : credits) {
@@ -96,8 +118,9 @@ public class TitleScreenCredits {
                 Response res = Http.get(String.format("https://api.github.com/repos/%s/branches/%s", repo.getOwnerName(), repo.branch())).sendJson(Response.class);
 
                 if (res != null && !commit.equals(res.commit.sha)) {
+                    credit.outdated = true;
                     synchronized (credit.sections) {
-                        credit.sections.add(1, new Section("*", RED));
+                        credit.sections.add(1, new OutdatedMarker());
                         credit.calculateWidth();
                     }
                 }
@@ -105,9 +128,6 @@ public class TitleScreenCredits {
         });
     }
 
-    /**
-     * @author Crosby
-     */
     private static void add(MeteorAddon addon) {
         if (addon.name == null) return;
         Credit credit = new Credit(addon);
@@ -174,10 +194,22 @@ public class TitleScreenCredits {
         return false;
     }
 
+    private static void sortCredits() {
+        credits.sort(Comparator.comparingInt(value -> value.sections.get(0).text.equals("Meteor Client ") ? Integer.MIN_VALUE : -value.width));
+    }
+
+    private static boolean hasOutdated(Credit credit) {
+        for (var section : credit.sections) {
+            if (section instanceof OutdatedMarker) return true;
+        }
+        return false;
+    }
+
     public static class Credit {
         public final MeteorAddon addon;
         public final List<Section> sections = new ArrayList<>();
         public int width = 0;
+        public boolean outdated = false;
 
         public Credit(MeteorAddon addon) {
             this.addon = addon;
@@ -186,6 +218,11 @@ public class TitleScreenCredits {
         public void calculateWidth() {
             width = 0;
             for (var section : sections) width += section.width;
+        }
+
+        public void append(String text, int color) {
+            this.sections.add(new Section(text, color));
+            this.calculateWidth();
         }
     }
 
@@ -197,6 +234,13 @@ public class TitleScreenCredits {
             this.text = text;
             this.color = color;
             this.width = mc.textRenderer.getWidth(text);
+        }
+    }
+
+    public static class OutdatedMarker extends Section {
+
+        public OutdatedMarker() {
+            super("*", RED);
         }
     }
 

@@ -15,7 +15,7 @@
 ### Library
 - `WMeteorWindow` with custom accent color; `ColoredWindow`
 - `MeteorGuiTheme` with the default widgets, recolored; `RecolorGuiTheme`
-- Customizable title screen text rendering; `TitleScreenCredits.registerCustomDrawFunction()`
+- Customizable title screen text rendering; `TitleScreenCredits.registerCustomDrawFunction()` & `TitleScreenCredits.modifyAddonCredit()`
 - Use Meteor alternate accounts in commands. `AccountArgumentType`
 
 ### Utils
