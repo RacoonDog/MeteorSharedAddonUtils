@@ -16,6 +16,7 @@
     "MeteorExecutorMixin",
     "MeteorGuiThemeMixin",
     "TitleScreenCreditsMixin",
+    "modmenu.BadgeMixin",
     "modmenu.IFabricMod",
     "modmenu.ModBadgeRendererMixin"
   ],
