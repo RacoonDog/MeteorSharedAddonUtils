@@ -13,6 +13,7 @@
     "ISwarm",
     "ISystems",
     "MeteorAddonMixin",
+    "MeteorExecutorMixin",
     "MeteorGuiThemeMixin",
     "TitleScreenCreditsMixin",
     "modmenu.IFabricMod",

@@ -8,7 +8,8 @@
   "contact": {
     "repo": "https://github.com/RacoonDog/MeteorSharedAddonUtils",
     "sources": "https://github.com/RacoonDog/MeteorSharedAddonUtils",
-    "issues": "https://github.com/RacoonDog/MeteorSharedAddonUtils/issues"
+    "issues": "https://github.com/RacoonDog/MeteorSharedAddonUtils/issues",
+    "discord": "https://discord.gg/4RBmBCFSTc"
   },
   "license": "MIT",
   "icon": "assets/meteor-shared-addon-utils/icon.png",

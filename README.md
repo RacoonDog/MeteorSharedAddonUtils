@@ -45,10 +45,10 @@ repositories {
 }
 
 dependencies {
-  modImplementation("io.github.racoondog:MeteorSharedAddonUtils:1.2.1") {
+  modImplementation("io.github.racoondog:MeteorSharedAddonUtils:1.2.7") {
     transitive = false
   }
-  include("io.github.racoondog:MeteorSharedAddonUtils:1.2.1") {
+  include("io.github.racoondog:MeteorSharedAddonUtils:1.2.7") {
     transitive = false
   }
 }
