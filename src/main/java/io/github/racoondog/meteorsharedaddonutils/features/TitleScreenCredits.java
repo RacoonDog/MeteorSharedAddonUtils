@@ -1,6 +1,7 @@
 package io.github.racoondog.meteorsharedaddonutils.features;
 
 import io.github.racoondog.meteorsharedaddonutils.MeteorSharedAddonUtils;
+import io.github.racoondog.meteorsharedaddonutils.utils.ColorUtils;
 import it.unimi.dsi.fastutil.objects.ObjectBooleanImmutablePair;
 import it.unimi.dsi.fastutil.objects.ObjectBooleanPair;
 import meteordevelopment.meteorclient.MeteorClient;
@@ -15,6 +16,7 @@ import meteordevelopment.meteorclient.utils.render.color.Color;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.Pair;
 
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class TitleScreenCredits {
     private static final List<Credit> credits = new ArrayList<>();
     private static boolean initialized = false;
     private static final List<Pair<MeteorAddon, Consumer<Credit>>> creditModificationQueue = new ArrayList<>();
+    private static final List<Consumer<Credit>> globalCreditModificationQueue = new ArrayList<>();
 
     /**
      * Registers a custom title screen credit drawing function.
@@ -102,7 +105,7 @@ public class TitleScreenCredits {
         for (var credit : credits) {
             if (credit.addon.equals(addon)) {
                 creditConsumer.accept(credit);
-                if (credit.outdated && !hasOutdated(credit)) credit.sections.add(1, new OutdatedMarker());
+                if (credit.outdated && !hasOutdated(credit)) credit.sections.add(1, OutdatedMarker.MARKER);
                 credit.calculateWidth();
                 sortCredits();
                 return;
@@ -111,13 +114,43 @@ public class TitleScreenCredits {
         MeteorSharedAddonUtils.LOG.warn("A credit could not be found for addon {}.", addon.name);
     }
 
+    /**
+     * Modifies every unmodified credit including Meteor Client.
+     *
+     * <pre>{@code TitleScreenCredits.registerGlobalCreditModification(credit -> credit.append(" <- bad addon.", TitleScreenCredits.WHITE));}</pre>
+     *
+     * @throws RuntimeException if called after initialization.
+     */
+    public static void registerGlobalCreditModification(Consumer<Credit> creditConsumer) {
+        if (initialized) throw new RuntimeException("Cannot register global credit modification post-initialization!");
+        globalCreditModificationQueue.add(creditConsumer);
+    }
+
     private static void init() {
         initialized = true;
 
         add(MeteorClient.ADDON);
         AddonManager.ADDONS.forEach(TitleScreenCredits::add);
 
+        //Single credit modifications
         creditModificationQueue.forEach(pair -> modifyAddonCredit(pair.getLeft(), pair.getRight()));
+
+        //Global credit modifications
+        for (var globalModification : globalCreditModificationQueue) {
+            for (var credit : credits) {
+                //Check if credit has been previously modified.
+                boolean skip = false;
+                for (var localModification : creditModificationQueue) {
+                    if (localModification.getLeft().equals(credit.addon)) {
+                        skip = true;
+                        break;
+                    }
+                }
+                if (skip) break;
+
+                globalModification.accept(credit);
+            }
+        }
 
         sortCredits();
 
@@ -132,7 +165,7 @@ public class TitleScreenCredits {
                 if (res != null && !commit.equals(res.commit.sha)) {
                     credit.outdated = true;
                     synchronized (credit.sections) {
-                        credit.sections.add(1, new OutdatedMarker());
+                        credit.sections.add(1, OutdatedMarker.MARKER);
                         credit.calculateWidth();
                     }
                 }
@@ -176,7 +209,7 @@ public class TitleScreenCredits {
 
                 synchronized (credit.sections) {
                     for (var section : credit.sections) {
-                        mc.textRenderer.drawWithShadow(matrixStack, section.text, x, y, section.color);
+                        mc.textRenderer.drawWithShadow(matrixStack, section.text, x, y, -1);
                         x += section.width;
                     }
                 }
@@ -207,7 +240,7 @@ public class TitleScreenCredits {
     }
 
     private static void sortCredits() {
-        credits.sort(Comparator.comparingInt(value -> value.sections.get(0).text.equals("Meteor Client ") ? Integer.MIN_VALUE : -value.width));
+        credits.sort(Comparator.comparingInt(value -> value.sections.get(0).text.getString().equals("Meteor Client ") ? Integer.MIN_VALUE : -value.width));
     }
 
     private static boolean hasOutdated(Credit credit) {
@@ -232,27 +265,36 @@ public class TitleScreenCredits {
             for (var section : sections) width += section.width;
         }
 
-        public void append(String text, int color) {
-            this.sections.add(new Section(text, color));
+        public void append(Text text) {
+            this.sections.add(new Section(text));
             this.calculateWidth();
+        }
+
+        public void append(String text, int color) {
+            append(ColorUtils.simpleColoredText(text, color));
         }
     }
 
     public static class Section {
-        public final String text;
-        public final int color, width;
+        public final Text text;
+        public final int width;
+
+        public Section(Text text) {
+            this.text = text;
+            this.width = mc.textRenderer.getWidth(text);
+        }
 
         public Section(String text, int color) {
-            this.text = text;
-            this.color = color;
-            this.width = mc.textRenderer.getWidth(text);
+            this(ColorUtils.simpleColoredText(text, color));
         }
     }
 
     public static class OutdatedMarker extends Section {
+        private static final Text TEXT = ColorUtils.simpleColoredText("*", RED);
+        public static final OutdatedMarker MARKER = new OutdatedMarker();
 
-        public OutdatedMarker() {
-            super("*", RED);
+        private OutdatedMarker() {
+            super(TEXT);
         }
     }
 

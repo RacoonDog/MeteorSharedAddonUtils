@@ -3,14 +3,12 @@ package io.github.racoondog.meteorsharedaddonutils.mixin.mixin;
 import meteordevelopment.meteorclient.utils.network.MeteorExecutor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = MeteorExecutor.class, remap = false)

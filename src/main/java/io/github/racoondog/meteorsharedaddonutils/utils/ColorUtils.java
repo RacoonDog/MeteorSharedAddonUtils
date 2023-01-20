@@ -5,6 +5,7 @@ import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.text.Style;
+import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.Nullable;
@@ -109,5 +110,12 @@ public final class ColorUtils {
      */
     public static Style styleWithColor(Style style, Color color) {
         return style.withColor(color.getPacked());
+    }
+
+    /**
+     * @return A {@link Text} object with the given text and color.
+     */
+    public static Text simpleColoredText(String text, int color) {
+        return Text.literal(text).setStyle(Style.EMPTY.withColor(color));
     }
 }

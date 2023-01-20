@@ -15,7 +15,7 @@
 ### Library
 - `WMeteorWindow` with custom accent color; `ColoredWindow`
 - `MeteorGuiTheme` with the default widgets, recolored; `RecolorGuiTheme`
-- Customizable title screen text rendering; `TitleScreenCredits.registerCustomDrawFunction()` & `TitleScreenCredits.modifyAddonCredit()`
+- Customizable title screen text rendering; `TitleScreenCredits.registerCustomDrawFunction()`, `TitleScreenCredits.modifyAddonCredit()` & `TitleScreenCredits.registerGlobalCreditModification()`
 - Use Meteor alternate accounts in commands. `AccountArgumentType`
 
 ### Utils
@@ -45,10 +45,10 @@ repositories {
 }
 
 dependencies {
-  modImplementation("io.github.racoondog:MeteorSharedAddonUtils:1.2.7") {
+  modImplementation("io.github.racoondog:MeteorSharedAddonUtils:1.2.9") {
     transitive = false
   }
-  include("io.github.racoondog:MeteorSharedAddonUtils:1.2.7") {
+  include("io.github.racoondog:MeteorSharedAddonUtils:1.2.9") {
     transitive = false
   }
 }
