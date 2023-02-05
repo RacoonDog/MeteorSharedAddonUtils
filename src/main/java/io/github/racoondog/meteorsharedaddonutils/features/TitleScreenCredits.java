@@ -149,6 +149,7 @@ public class TitleScreenCredits {
                 if (skip) break;
 
                 globalModification.accept(credit);
+                credit.calculateWidth();
             }
         }
 

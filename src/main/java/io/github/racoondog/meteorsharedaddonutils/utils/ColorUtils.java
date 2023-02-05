@@ -12,6 +12,8 @@ import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public final class ColorUtils {
+    public static final SettingColor WHITE = new SettingColor();
+
     /**
      * @param packedRgb Packed {@code int} form of RGB {@code #RRGGBB}.
      * @return {@link SettingColor} object.
@@ -41,7 +43,7 @@ public final class ColorUtils {
      * @return {@link SettingColor} object that is {@link Color#WHITE} if {@link Formatting} does not contain a color value.
      */
     public static SettingColor fromFormatting(Formatting formatting) {
-        return fromFormatting(formatting, (SettingColor) Color.WHITE);
+        return fromFormatting(formatting, WHITE);
     }
 
     /**
@@ -58,7 +60,7 @@ public final class ColorUtils {
      * @return {@link SettingColor} object that is {@link Color#WHITE} if {@link TextColor} is null.
      */
     public static SettingColor fromTextColor(@Nullable TextColor textColor) {
-        return fromTextColor(textColor, (SettingColor) Color.WHITE);
+        return fromTextColor(textColor, WHITE);
     }
 
     /**
@@ -75,7 +77,7 @@ public final class ColorUtils {
      * @return {@link SettingColor} object that is {@link Color#WHITE} if {@link Style} does not contain a color value.
      */
     public static SettingColor fromStyle(Style style) {
-        return fromStyle(style, (SettingColor) Color.WHITE);
+        return fromStyle(style, WHITE);
     }
 
     /**

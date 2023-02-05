@@ -38,6 +38,7 @@ public abstract class CrashReportMixin {
                     if (i > 0) sb.append(i == authors.size() - 1 ? " & " : ", ");
                     sb.append(authors.get(i));
                 }
+                sb.append(')');
             }
 
             sb.append("; v").append(AddonUtils.getAddonVersion(addon));
