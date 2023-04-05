@@ -16,7 +16,8 @@
 - `WMeteorWindow` with custom accent color; `ColoredWindow`
 - `MeteorGuiTheme` with the default widgets, recolored; `RecolorGuiTheme`
 - Customizable title screen text rendering; `TitleScreenCredits.registerCustomDrawFunction()`, `TitleScreenCredits.modifyAddonCredit()` & `TitleScreenCredits.registerGlobalCreditModification()`
-- Use Meteor alternate accounts in commands. `AccountArgumentType`
+- Use Meteor alternate accounts in commands; `AccountArgumentType`
+- Container for Meteor-style screens as an overlay to vanilla screens. `ScreenContainer`
 
 ### Utils
 - Packed RGB & ARGB to `SettingColor`; `ColorUtils.fromPackedRGB()` & `ColorUtils.fromPackedARGB()`
@@ -28,7 +29,6 @@
 - Utils to parse `fabric.mod.json` custom data; `ModMetaUtils`
 - Add a system; `ISystems.invokeAdd()`
 - Get a `GuiTheme`'s `SettingsWidgetFactory`; `ThemeUtils.getSettingsFactory()`
-- 2 Dimensional `int` vector; `Vec2i`
 - Get `Swarm` settings; `ISwarm.getIpAddress()` & `ISwarm.getServerPort()`
 - Get alternate accounts list; `IAccounts.getAccounts()`
 - Get alt account auth token. `IMicrosoftAccount.invokeAuth()`
