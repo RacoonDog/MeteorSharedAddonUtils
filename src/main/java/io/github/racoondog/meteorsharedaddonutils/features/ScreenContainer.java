@@ -16,8 +16,10 @@ import meteordevelopment.meteorclient.utils.misc.input.Input;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -227,13 +229,13 @@ public abstract class ScreenContainer {
     }
 
     //OVERRIDE
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         double s = mc.getWindow().getScaleFactor();
         mouseX *= s;
         mouseY *= s;
 
         animProgress += delta / 20 * 14;
-        animProgress = Utils.clamp(animProgress, 0, 1);
+        animProgress = MathHelper.clamp(animProgress, 0, 1);
 
         GuiKeyEvents.canUseKeys = true;
 
@@ -245,17 +247,17 @@ public abstract class ScreenContainer {
         RENDERER.theme = theme;
         theme.beforeRender();
 
-        RENDERER.begin(matrices);
+        RENDERER.begin(context);
         RENDERER.setAlpha(animProgress);
         root.render(RENDERER, mouseX, mouseY, delta / 20);
         RENDERER.setAlpha(1);
-        RENDERER.end(matrices);
+        RENDERER.end();
 
-        boolean tooltip = RENDERER.renderTooltip(mouseX, mouseY, delta / 20, matrices);
+        boolean tooltip = RENDERER.renderTooltip(context, mouseX, mouseY, delta / 20);
 
         if (debug) {
-            DEBUG_RENDERER.render(root, matrices);
-            if (tooltip) DEBUG_RENDERER.render(RENDERER.tooltipWidget, matrices);
+            DEBUG_RENDERER.render(root, context.getMatrices());
+            if (tooltip) DEBUG_RENDERER.render(RENDERER.tooltipWidget, context.getMatrices());
         }
 
         Utils.scaledProjection();

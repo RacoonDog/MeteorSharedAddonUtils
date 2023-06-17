@@ -15,6 +15,7 @@ import meteordevelopment.meteorclient.utils.network.MeteorExecutor;
 import meteordevelopment.meteorclient.utils.render.color.Color;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Pair;
@@ -196,21 +197,21 @@ public class TitleScreenCredits {
         credits.add(credit);
     }
 
-    public static void render(MatrixStack matrixStack) {
+    public static void render(DrawContext context) {
         if (credits.isEmpty()) init();
 
         int y = 3;
         for (var credit : credits) {
             if (customTitleScreenDrawFunctions.containsKey(credit.addon)) {
                 ObjectBooleanPair<DrawFunction> pair = customTitleScreenDrawFunctions.get(credit.addon);
-                pair.left().accept(matrixStack, credit, y);
+                pair.left().accept(context.getMatrices(), credit, y);
                 if (pair.rightBoolean()) y += mc.textRenderer.fontHeight + 2;
             } else {
                 int x = mc.currentScreen.width - 3 - credit.width;
 
                 synchronized (credit.sections) {
                     for (var section : credit.sections) {
-                        mc.textRenderer.drawWithShadow(matrixStack, section.text, x, y, -1);
+                        context.drawTextWithShadow(mc.textRenderer, section.text, x, y, -1);
                         x += section.width;
                     }
                 }

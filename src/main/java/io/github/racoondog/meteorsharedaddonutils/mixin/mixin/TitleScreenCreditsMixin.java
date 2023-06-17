@@ -3,6 +3,7 @@ package io.github.racoondog.meteorsharedaddonutils.mixin.mixin;
 import meteordevelopment.meteorclient.utils.player.TitleScreenCredits;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,8 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = TitleScreenCredits.class, remap = false)
 public abstract class TitleScreenCreditsMixin {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    private static void injectRender(MatrixStack matrices, CallbackInfo ci) {
-        io.github.racoondog.meteorsharedaddonutils.features.TitleScreenCredits.render(matrices);
+    private static void injectRender(DrawContext context, CallbackInfo ci) {
+        io.github.racoondog.meteorsharedaddonutils.features.TitleScreenCredits.render(context);
         ci.cancel();
     }
 
