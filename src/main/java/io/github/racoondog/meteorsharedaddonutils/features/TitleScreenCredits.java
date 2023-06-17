@@ -32,7 +32,7 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 public class TitleScreenCredits {
     @FunctionalInterface
     public interface DrawFunction {
-        void accept(MatrixStack matrices, Credit credit, int y);
+        void accept(DrawContext context, Credit credit, int y);
     }
 
     public static final int WHITE = Color.fromRGBA(255, 255, 255, 255);
@@ -204,7 +204,7 @@ public class TitleScreenCredits {
         for (var credit : credits) {
             if (customTitleScreenDrawFunctions.containsKey(credit.addon)) {
                 ObjectBooleanPair<DrawFunction> pair = customTitleScreenDrawFunctions.get(credit.addon);
-                pair.left().accept(context.getMatrices(), credit, y);
+                pair.left().accept(context, credit, y);
                 if (pair.rightBoolean()) y += mc.textRenderer.fontHeight + 2;
             } else {
                 int x = mc.currentScreen.width - 3 - credit.width;
