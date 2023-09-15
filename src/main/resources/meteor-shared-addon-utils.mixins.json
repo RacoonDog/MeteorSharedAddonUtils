@@ -13,7 +13,6 @@
     "ISwarm",
     "ISystems",
     "MeteorAddonMixin",
-    "MeteorExecutorMixin",
     "MeteorGuiThemeMixin",
     "TitleScreenCreditsMixin",
     "modmenu.BadgeMixin",
